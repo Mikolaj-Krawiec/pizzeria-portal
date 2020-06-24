@@ -4,11 +4,24 @@ import PropTypes from 'prop-types';
 
 import PagNav from '../PagNav/PagNav';
 
-const MainLayout = props => {
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Container from '@material-ui/core/Container';
+
+const MainLayout = (props) => {
   return (
     <div>
-      <PagNav/>
-      {props.children}
+      <AppBar>
+        <Container maxWidth='lg'>
+          <Toolbar disableGutters>
+            <PagNav />
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Container maxWidth='lg'>
+        <Toolbar/>
+        {props.children}
+      </Container>
     </div>
   );
 };
