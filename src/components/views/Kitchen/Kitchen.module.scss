@@ -3,3 +3,13 @@
 .component {
   padding: $base-size;
 }
+
+.heading {
+  font-size: 1rem;
+  flex-basis: '33.33%';
+   flex-shrink: 0;
+}
+
+.option{
+  margin-right: 15px;
+}
