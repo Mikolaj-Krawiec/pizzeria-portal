@@ -6,9 +6,9 @@ import Login from './components/views/Login/Login';
 import Homepage from './components/views/Homepage/Homepage';
 import Kitchen from './components/views/Kitchen/Kitchen';
 import Tables from './components/views/Tables/Tables';
-import TablesBooking from './components/views/TablesBooking/TablesBooking';
-import TablesEvents from './components/views/TablesEvents/TablesEvents';
-import Waiter from './components/views/Waiter/Waiter';
+import Booking from './components/views/Booking/Booking';
+import Event from './components/views/Event/Event';
+import Waiter from './components/views/Waiter/WaiterContainer';
 import WaiterOrder from './components/views/WaiterOrder/WaiterOrder';
 
 import { StylesProvider } from '@material-ui/styles';
@@ -34,8 +34,8 @@ function App() {
             <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
             <Route exact path={process.env.PUBLIC_URL + '/waiter'} component={Waiter} />
             <Route path={process.env.PUBLIC_URL + '/waiter/order/:id'} component={WaiterOrder} />
-            <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={TablesBooking} />
-            <Route path={process.env.PUBLIC_URL + '/tables/events/:id'} component={TablesEvents} />
+            <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={Booking} />
+            <Route path={process.env.PUBLIC_URL + '/tables/events/:id'} component={Event} />
           </MainLayout>
         </ThemeProvider>
       </StylesProvider>

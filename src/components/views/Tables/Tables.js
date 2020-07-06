@@ -25,23 +25,30 @@ import {
 const demoContent = [
   {
     id: 1,
-    date: '2020-07-01',
+    date: utils.dateToStr(new Date()),
     hour: '16:00',
     table: 1,
     duration: 3,
     ppl: 4,
     starters: ['water'],
   },
+  {
+    id: 2,
+    date: utils.dateToStr(new Date()),
+    hour: '16:00',
+    table: 3,
+    repeat: 'daily',
+    duration: 2,
+    ppl: 3,
+    starters: ['bread', 'lemonWater'],
+  },
 ];
 
 const Tables = (props) => {
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date()
-  );
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-
   };
 
   const hours = [];
@@ -52,35 +59,62 @@ const Tables = (props) => {
 
   const renderTable = (table, hour) => {
     for (const booking of demoContent) {
-      console.log();
+      if (
+        booking.repeat === 'daily' &&
+        utils.dateToStr(selectedDate) >= booking.date &&
+        booking.table === table &&
+        utils.hourToNumber(booking.hour) <= hour &&
+        utils.hourToNumber(booking.hour) + booking.duration > hour
+      ) {
+        return (
+          <Button
+            variant="contained"
+            component={Link}
+            to={process.env.PUBLIC_URL + '/tables/events/' + booking.id}
+          >
+            event id: {booking.id}
+          </Button>
+        );
+      }
       if (
         utils.dateToStr(selectedDate) === booking.date &&
         booking.table === table &&
         utils.hourToNumber(booking.hour) <= hour &&
         utils.hourToNumber(booking.hour) + booking.duration > hour
       ) {
-        return <Button component={Link} to={process.env.PUBLIC_URL + '/tables/booking/' + booking.id }>reservation id: {booking.id}</Button>;
+        return (
+          <Button
+            variant="contained"
+            component={Link}
+            to={process.env.PUBLIC_URL + '/tables/booking/' + booking.id}
+          >
+            reservation id: {booking.id}
+          </Button>
+        );
       }
     }
   };
 
   return (
     <React.Fragment>
-      {/* <div className={classes.component}>
-        <h2>Tables view</h2>
-        <Link to={process.env.PUBLIC_URL + '/tables/booking/new'}>
-          Book table
-        </Link>
-        <Link to={process.env.PUBLIC_URL + '/tables/booking/some_booking_id'}>
-          Edit some booking
-        </Link>
-        <Link to={process.env.PUBLIC_URL + '/tables/events/new'}>
-          Add event
-        </Link>
-        <Link to={process.env.PUBLIC_URL + '/tables/events/some_event_id'}>
-          Edit some event
-        </Link>
-      </div> */}
+      <div className={classes.buttonContainer}>
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          href={`${process.env.PUBLIC_URL}/tables/booking/new`}
+        >
+          Book Table
+        </Button>
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          href={`${process.env.PUBLIC_URL}/tables/events/new`}
+        >
+          New Event
+        </Button>
+      </div>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justify="space-around">
           <KeyboardDatePicker
